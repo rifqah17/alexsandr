@@ -1,176 +1,204 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Для моего Sasha 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body {
-  margin: 0;
-  overflow: hidden;
-  font-family: 'Comic Sans MS', cursive;
-  background: black;
-  color: white;
-  text-align: center;
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  font-family:'Dancing Script', cursive;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:#e5e7eb;
 }
 
-.heart {
-  position: fixed;
-  color: pink;
-  font-size: 20px;
-  animation: fall linear infinite;
+.card {
+  background:#111827;
+  border-radius:20px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.5);
+  max-width:420px;
+  width:90%;
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
 }
 
-@keyframes fall {
-  0% {transform: translateY(-10vh);}
-  100% {transform: translateY(110vh);}
+.slide {
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  padding:20px;
+  text-align:center;
 }
 
-.container {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.slide.active {
+  opacity:1;
+  pointer-events:auto;
 }
 
-button {
-  padding: 15px 25px;
-  font-size: 18px;
-  border-radius: 20px;
-  border: none;
-  background: pink;
-  cursor: pointer;
+h1 {color:#38bdf8;}
+p {font-size:20px;}
+
+img {
+  max-width:80%;
+  border-radius:16px;
+  margin:15px 0;
 }
 
-#text {
-  font-size: 22px;
-  max-width: 600px;
-  margin: auto;
+.btn {
+  margin-top:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:#38bdf8;
+  cursor:pointer;
 }
 
-#countdown {
-  font-size: 50px;
-  margin-bottom: 20px;
+/* PIN */
+.pin-box {
+  display:flex;
+  gap:10px;
 }
 
-/* girl animation */
-.girl {
-  width: 200px;
-  position: relative;
-  animation: walk 6s infinite alternate;
+.pin-box input {
+  width:50px;
+  height:60px;
+  font-size:28px;
+  text-align:center;
+  border-radius:10px;
+  border:2px solid #38bdf8;
+  background:#1f2937;
+  color:white;
 }
 
-/* jalan */
-@keyframes walk {
-  0% { left: -30px; }
-  100% { left: 30px; }
-}
-
-/* kasih kue ke layar */
-.cake {
-  width: 150px;
-  margin-top: 10px;
-  animation: giveCake 2s infinite alternate;
-}
-
-@keyframes giveCake {
-  from { transform: scale(1); }
-  to { transform: scale(1.2); }
+/* MUSIC BUTTON */
+#musicToggle {
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:#38bdf8;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
-  <!-- CEWEK -->
-  <img class="girl" src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif">
+<!-- 🔐 PIN -->
+<div class="slide active" id="slide1">
+<h1>Введите PIN 🎂</h1>
 
-  <!-- KUE -->
-  <img class="cake" src="https://media.giphy.com/media/l0MYyDa8S9ghzNebm/giphy.gif">
-
-  <div id="countdown">3</div>
-  <h1>🎂 Это для тебя, Sasha... 💖</h1>
-  <button onclick="start()">Нажми сюда 😳</button>
-  <p id="text"></p>
+<div class="pin-box">
+<input type="password" maxlength="1">
+<input type="password" maxlength="1">
+<input type="password" maxlength="1">
+<input type="password" maxlength="1">
 </div>
 
-<!-- 🎵 MUSIK (FIX WORKING) -->
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b1b78.mp3?filename=happy-birthday-254480.mp3" type="audio/mpeg">
-</audio>
+<button class="btn" onclick="checkPin()">OK</button>
+<p id="error" style="color:red;"></p>
+
+<p style="font-size:14px;">* clue: дата рождения</p>
+</div>
+
+<!-- 🎉 SLIDE 2 -->
+<div class="slide" id="slide2">
+<h1>С днём рождения, Sasha 🎂💖</h1>
+<img src="birthday.gif">
+<p>Сегодня особенный день...</p>
+<button class="btn" onclick="nextSlide()">➡</button>
+</div>
+
+<!-- 💫 SLIDE 3 -->
+<div class="slide" id="slide3">
+<img src="hope.gif">
+<p>Я желаю тебе здоровья, счастья ✨</p>
+<p>И чтобы всё у тебя было хорошо 💫</p>
+<button class="btn" onclick="prevSlide()">⬅</button>
+<button class="btn" onclick="nextSlide()">➡</button>
+</div>
+
+<!-- 💖 SLIDE 4 -->
+<div class="slide" id="slide4">
+<img src="thanks.gif">
+<p>Hubby… 😭💖</p>
+<p>Ты иногда вредный...</p>
+<p>Но я всё равно тебя люблю 💕</p>
+<button class="btn" onclick="prevSlide()">⬅</button>
+<button class="btn" onclick="nextSlide()">➡</button>
+</div>
+
+<!-- 💍 SLIDE 5 -->
+<div class="slide" id="slide5">
+<p>Ты мой самый любимый человек 🥺</p>
+<p>СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 😭💖</p>
+<p>Я ЖДУ ТЕБЯ, HUBBY!!!</p>
+<button class="btn" onclick="prevSlide()">⬅</button>
+</div>
+
+</div>
+
+<button id="musicToggle" onclick="toggleMusic()">▶ Play Music</button>
 
 <script>
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-  document.body.appendChild(heart);
+let currentSlide=1;
 
-  setTimeout(() => heart.remove(), 5000);
+/* PIN 1004 */
+function checkPin(){
+const inputs=document.querySelectorAll('.pin-box input');
+const pin=[...inputs].map(i=>i.value).join('');
+
+if(pin==="1004"){
+showSlide(2);
+document.getElementById("error").innerText="";
+}else{
+document.getElementById("error").innerText="Неверный PIN!";
+inputs.forEach(i=>i.value="");
 }
-setInterval(createHeart, 300);
-
-/* countdown */
-let count = 3;
-const countdownEl = document.getElementById("countdown");
-
-const countdown = setInterval(() => {
-  count--;
-  countdownEl.innerHTML = count;
-
-  if (count === 0) {
-    clearInterval(countdown);
-    countdownEl.innerHTML = "🎉";
-  }
-}, 1000);
-
-/* message */
-const message = [
-"С днём рождения, Sasha 🎂💖",
-"",
-"Сегодня особенный день...",
-"",
-"Я желаю тебе здоровья, счастья ✨",
-"И чтобы всё у тебя было хорошо 💫",
-"",
-"Hubby… ",
-"Ты иногда вредный...",
-"Но я всё равно тебя люблю 💕",
-"",
-"Ты мой самый любимый человек 🥺",
-"",
-"И теперь слушай внимательно...",
-"",
-"СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 💖",
-"Я ЖДУ ТЕБЯ, HUBBY!!!"
-];
-
-let i = 0;
-let j = 0;
-
-function start() {
-  document.querySelector("button").style.display = "none";
-  document.getElementById("music").play();
-  typeWriter();
 }
 
-function typeWriter() {
-  if (i < message.length) {
-    if (j < message[i].length) {
-      document.getElementById("text").innerHTML += message[i].charAt(j);
-      j++;
-      setTimeout(typeWriter, 50);
-    } else {
-      document.getElementById("text").innerHTML += "<br><br>";
-      j = 0;
-      i++;
-      setTimeout(typeWriter, 500);
-    }
-  }
+function showSlide(n){
+document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+document.getElementById('slide'+n).classList.add('active');
+currentSlide=n;
+}
+
+function nextSlide(){
+if(currentSlide<5) showSlide(currentSlide+1);
+}
+
+function prevSlide(){
+if(currentSlide>2) showSlide(currentSlide-1);
+}
+
+/* MUSIC */
+let audio=new Audio("musik.mp3");
+audio.loop=true;
+let play=false;
+
+function toggleMusic(){
+if(play){audio.pause(); play=false;}
+else{audio.play(); play=true;}
 }
 </script>
 
