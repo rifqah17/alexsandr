@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Для моего Саши 💖</title>
+<title>Для моего Sasha 💖</title>
 
 <style>
 body {
@@ -53,17 +53,29 @@ button {
   margin-bottom: 20px;
 }
 
-/* GIF */
+/* girl animation */
 .girl {
   width: 200px;
-  margin-bottom: 20px;
-  animation: float 3s ease-in-out infinite;
+  position: relative;
+  animation: walk 6s infinite alternate;
 }
 
-@keyframes float {
-  0% {transform: translateY(0);}
-  50% {transform: translateY(-10px);}
-  100% {transform: translateY(0);}
+/* jalan */
+@keyframes walk {
+  0% { left: -30px; }
+  100% { left: 30px; }
+}
+
+/* kasih kue ke layar */
+.cake {
+  width: 150px;
+  margin-top: 10px;
+  animation: giveCake 2s infinite alternate;
+}
+
+@keyframes giveCake {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
 }
 </style>
 </head>
@@ -71,17 +83,22 @@ button {
 <body>
 
 <div class="container">
-  <!-- GIF CEWEK -->
-  <img class="girl" src="https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif" alt="birthday girl">
+
+  <!-- CEWEK -->
+  <img class="girl" src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif">
+
+  <!-- KUE -->
+  <img class="cake" src="https://media.giphy.com/media/l0MYyDa8S9ghzNebm/giphy.gif">
 
   <div id="countdown">3</div>
-  <h1>🎂 Это для тебя, Саша... 💖</h1>
+  <h1>🎂 Это для тебя, Sasha... 💖</h1>
   <button onclick="start()">Нажми сюда 😳</button>
   <p id="text"></p>
 </div>
 
+<!-- 🎵 MUSIK (FIX WORKING) -->
 <audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b1b78.mp3?filename=happy-birthday-254480.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -97,7 +114,7 @@ function createHeart() {
 }
 setInterval(createHeart, 300);
 
-/* Countdown */
+/* countdown */
 let count = 3;
 const countdownEl = document.getElementById("countdown");
 
@@ -111,27 +128,25 @@ const countdown = setInterval(() => {
   }
 }, 1000);
 
-/* Message */
+/* message */
 const message = [
-"С днём рождения, Саша 🎂💖",
+"С днём рождения, Sasha 🎂💖",
 "",
-"Сегодня не просто обычный день...",
-"Это день, когда родился самый важный человек в моей жизни 🥺",
+"Сегодня особенный день...",
 "",
-"Я желаю тебе здоровья, счастья,",
-"и чтобы всё в твоей жизни проходило легко ✨",
+"Я желаю тебе здоровья, счастья ✨",
+"И чтобы всё у тебя было хорошо 💫",
 "",
-"Пусть твоя карьера становится только лучше 😤💖",
-"",
-"Ты иногда вредный 😭",
+"Hubby… ",
+"Ты иногда вредный...",
 "Но я всё равно тебя люблю 💕",
+"",
+"Ты мой самый любимый человек 🥺",
 "",
 "И теперь слушай внимательно...",
 "",
-"СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 😭💖",
-"Я ЖДУ ТЕБЯ!!!",
-"",
-"Я люблю тебя, Саша 💖"
+"СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 💖",
+"Я ЖДУ ТЕБЯ, HUBBY!!!"
 ];
 
 let i = 0;
